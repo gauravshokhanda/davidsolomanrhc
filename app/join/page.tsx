@@ -1,32 +1,57 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { CheckCircle } from 'lucide-react';
+import { useState } from "react";
+import { CheckCircle } from "lucide-react";
 
 export default function Join() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    interests: '',
-    experience: '',
-    location: '',
-    notes: '',
+    name: "",
+    email: "",
+    phone: "",
+    interests: "",
+    experience: "",
+    location: "",
+    notes: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission - save to backend/console
-    console.log('Form submitted:', formData);
-    setIsSubmitted(true);
+
+    try {
+      const response = await fetch("/api/join", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        console.error("Form submission failed");
+        alert(
+          "There was an error submitting your application. Please try again."
+        );
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert(
+        "There was an error submitting your application. Please try again."
+      );
+    }
   };
 
   if (isSubmitted) {
@@ -39,8 +64,9 @@ export default function Join() {
               Thank you for joining!
             </h1>
             <p className="text-lg text-gray-600 leading-relaxed mb-8">
-              We've received your information and will be in touch within 48 hours. 
-              In the meantime, you'll receive our welcome packet with next steps.
+              We&apos;ve received your information and will be in touch within
+              48 hours. In the meantime, you&apos;ll receive our welcome packet
+              with next steps.
             </p>
             <button
               onClick={() => setIsSubmitted(false)}
@@ -77,15 +103,21 @@ export default function Join() {
               Join our network
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed">
-              Help us build resilient communities. Share your skills, learn from others, 
-              and contribute to meaningful change in your area.
+              Help us build resilient communities. Share your skills, learn from
+              others, and contribute to meaningful change in your area.
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-8 bg-gray-50 rounded-2xl p-8">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-8 bg-gray-50 rounded-2xl p-8"
+          >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Full Name *
                 </label>
                 <input
@@ -98,9 +130,12 @@ export default function Join() {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-royal-green focus:border-royal-green outline-none"
                 />
               </div>
-              
+
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Email Address *
                 </label>
                 <input
@@ -117,7 +152,10 @@ export default function Join() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Phone Number
                 </label>
                 <input
@@ -129,9 +167,12 @@ export default function Join() {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-royal-green focus:border-royal-green outline-none"
                 />
               </div>
-              
+
               <div>
-                <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-2">
+                <label
+                  htmlFor="location"
+                  className="block text-sm font-medium text-gray-700 mb-2"
+                >
                   Location (City, State/Province)
                 </label>
                 <input
@@ -146,7 +187,10 @@ export default function Join() {
             </div>
 
             <div>
-              <label htmlFor="interests" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="interests"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Areas of Interest
               </label>
               <select
@@ -168,7 +212,10 @@ export default function Join() {
             </div>
 
             <div>
-              <label htmlFor="experience" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="experience"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Relevant Experience
               </label>
               <textarea
@@ -183,7 +230,10 @@ export default function Join() {
             </div>
 
             <div>
-              <label htmlFor="notes" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="notes"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Additional Notes
               </label>
               <textarea
@@ -205,7 +255,7 @@ export default function Join() {
                 Submit Application
               </button>
               <p className="text-sm text-gray-500 mt-4">
-                We'll respond within 48 hours with next steps.
+                We&apos;ll respond within 48 hours with next steps.
               </p>
             </div>
           </form>
