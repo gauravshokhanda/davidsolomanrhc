@@ -1,30 +1,47 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react";
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navItems = [
-    { href: '/', label: 'Home' },
-    { href: '/about', label: 'About' },
-    { href: '/our-work', label: 'Our Work' },
-    { href: '/journal', label: 'Journal' },
-    { href: '/gatherings', label: 'Gatherings' },
-    { href: '/join', label: 'Join' },
-    { href: '/support', label: 'Support' },
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About" },
+    { href: "/our-work", label: "Our Work" },
+    { href: "/journal", label: "Journal" },
+    { href: "/gatherings", label: "Gatherings" },
+    { href: "/join", label: "Join" },
+    { href: "/support", label: "Support" },
   ];
 
   return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <nav className={`sticky top-0 z-50 transition-all duration-300 ${
+      isScrolled 
+        ? 'bg-white/95 backdrop-blur-md border-b border-gray-200/50 shadow-sm' 
+        : 'bg-transparent'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-royal-green rounded-lg flex items-center justify-center">
-              <span className="text-white font-space-grotesk font-bold text-sm">RHC</span>
+              <span className="text-white font-space-grotesk font-bold text-sm">
+                RHC
+              </span>
             </div>
             <span className="font-space-grotesk font-semibold text-xl text-royal-green">
               Resilient Human Collective
