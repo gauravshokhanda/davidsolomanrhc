@@ -1,4 +1,5 @@
 import { Map, Beaker, BookOpen, Users, Target, Lightbulb } from 'lucide-react';
+import Image from 'next/image';
 
 export default function OurWork() {
   const programs = [
@@ -8,6 +9,7 @@ export default function OurWork() {
       description: 'An interactive platform connecting regenerative projects, skilled practitioners, and resource-sharing opportunities across bioregions.',
       status: 'Active',
       impact: '150+ communities mapped',
+      image: '/work/network.png',
     },
     {
       icon: <Beaker size={40} className="text-velvet-purple" />,
@@ -15,6 +17,7 @@ export default function OurWork() {
       description: 'Real-world testing sites for regenerative technologies, community governance models, and sustainable systems.',
       status: 'Expanding',
       impact: '8 pilot sites operational',
+      image: '/work/finelabs.png',
     },
     {
       icon: <BookOpen size={40} className="text-gray-700" />,
@@ -22,6 +25,7 @@ export default function OurWork() {
       description: 'Curated resources, workshops, and mentorship programs that transfer practical skills for resilient living.',
       status: 'Growing',
       impact: '500+ resources shared',
+      image: '/work/librarylearing.png',
     },
   ];
 
@@ -37,13 +41,21 @@ export default function OurWork() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-light-green py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="font-space-grotesk text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+      <section className="relative h-96 overflow-hidden">
+        <Image
+          src="/work/hero.png"
+          alt="Our Work Hero"
+          fill
+          className="object-cover opacity-80"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="relative z-10 h-full flex items-center justify-center">
+          <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h1 className="font-space-grotesk text-5xl lg:text-6xl font-bold text-white mb-6">
               Our work
             </h1>
-            <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed">
+            <p className="text-xl lg:text-2xl text-white/90 leading-relaxed">
               Practical programs that help communities develop resilience through 
               collaboration, innovation, and skill sharing.
             </p>
@@ -99,14 +111,14 @@ export default function OurWork() {
                 </div>
                 
                 <div className={index % 2 === 1 ? 'lg:col-start-1' : ''}>
-                  <div className="aspect-square bg-light-green rounded-2xl flex items-center justify-center">
-                    <div className="text-center text-gray-500">
-                      <div className="w-20 h-20 bg-royal-green/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        {program.icon}
-                      </div>
-                      <p className="text-lg font-medium">{program.title} Image</p>
-                      <p className="text-sm">Program in action</p>
-                    </div>
+                  <div className="relative aspect-square rounded-2xl overflow-hidden">
+                    <Image
+                      src={program.image}
+                      alt={`${program.title} in action`}
+                      fill
+                      className="object-cover opacity-80"
+                    />
+                    <div className="absolute inset-0 bg-black/20" />
                   </div>
                 </div>
               </div>
