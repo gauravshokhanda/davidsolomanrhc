@@ -1,4 +1,5 @@
 import { Heart, Users, Leaf, Mail } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Support() {
   const stewardCircles = [
@@ -13,13 +14,21 @@ export default function Support() {
   return (
     <div className="min-h-screen">
       {/* Hero Section with Background */}
-      <section className="relative bg-light-green py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="font-space-grotesk text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+      <section className="relative h-96 overflow-hidden">
+        <Image
+          src="/support/Hero.png"
+          alt="Support Hero"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="relative z-10 h-full flex items-center justify-center">
+          <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h1 className="font-space-grotesk text-5xl lg:text-6xl font-bold text-white mb-6">
               Fuel the work
             </h1>
-            <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed">
+            <p className="text-xl lg:text-2xl text-white/90 leading-relaxed">
               Support the work of connecting people, places, and skills for 
               resilient communities everywhere.
             </p>

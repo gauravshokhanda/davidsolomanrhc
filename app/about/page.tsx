@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CheckCircle, Target, Users, Globe, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 export default function About() {
   const principles = [
@@ -37,13 +38,25 @@ export default function About() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-light-green py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="font-space-grotesk text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-              About our network
+      <section className="relative h-96 overflow-hidden">
+        <Image
+          src="/about/Hero.png"
+          alt="About Hero"
+          fill
+          className="object-cover opacity-80"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/70" />
+
+        <div className="relative z-10 h-full flex items-center justify-center">
+          <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h1 className="font-space-grotesk text-5xl lg:text-6xl font-bold text-white mb-6">
+              About our
+              <span className="text-royal-green drop-shadow-[0_0_12px_rgba(34,197,94,0.9)]">
+                Network
+              </span>
             </h1>
-            <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed">
+            <p className="text-xl lg:text-2xl text-white/90 leading-relaxed">
               We&apos;re building a practical infrastructure for communities to
               thrive within planetary boundaries.
             </p>
@@ -77,11 +90,23 @@ export default function About() {
               </div>
             </div>
 
-            <div className="aspect-square bg-light-green rounded-2xl flex items-center justify-center">
-              <div className="text-center text-gray-500">
-                <Globe size={80} className="mx-auto mb-4 text-royal-green" />
-                <p className="text-lg font-medium">Mission Image</p>
-                <p className="text-sm">Community working together</p>
+            <div className="relative aspect-square rounded-2xl overflow-hidden">
+              {/* Background image */}
+              <Image
+                src="/about/Ourmission.png"
+                alt="Our Mission"
+                fill
+                className="object-cover"
+              />
+
+              {/* Black overlay */}
+              <div className="absolute inset-0 bg-black/50" />
+
+              {/* Centered text */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-white font-bold text-3xl lg:text-4xl">
+                  Our Mission
+                </span>
               </div>
             </div>
           </div>
@@ -102,39 +127,57 @@ export default function About() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            {/* Start Local */}
             <div className="text-center">
-              <div className="w-16 h-16 bg-royal-green rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-white font-bold text-xl">1</span>
+              <div
+                className="relative w-64 h-64 mx-auto mb-6 rounded-2xl overflow-hidden bg-center bg-cover"
+                style={{ backgroundImage: "url('/about/startlocal.png')" }}
+              >
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                  <span className="text-white font-bold text-2xl">
+                    Start Local
+                  </span>
+                </div>
               </div>
-              <h3 className="font-space-grotesk text-xl font-semibold text-gray-900 mb-4">
-                Start Local
-              </h3>
+
               <p className="text-gray-600 leading-relaxed">
                 Every resilient system begins with strong local relationships
                 and understanding of place-based needs.
               </p>
             </div>
 
+            {/* Test & Learn */}
             <div className="text-center">
-              <div className="w-16 h-16 bg-velvet-purple rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-white font-bold text-xl">2</span>
+              <div
+                className="relative w-64 h-64 mx-auto mb-6 rounded-2xl overflow-hidden bg-center bg-cover"
+                style={{ backgroundImage: "url('/about/testandlocal.png')" }}
+              >
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                  <span className="text-white font-bold text-2xl">
+                    Test & Learn
+                  </span>
+                </div>
               </div>
-              <h3 className="font-space-grotesk text-xl font-semibold text-gray-900 mb-4">
-                Test & Learn
-              </h3>
+
               <p className="text-gray-600 leading-relaxed">
                 We prototype solutions in real communities, document what works,
                 and share knowledge across the network.
               </p>
             </div>
 
+            {/* Scale Wisely */}
             <div className="text-center">
-              <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-white font-bold text-xl">3</span>
+              <div
+                className="relative w-64 h-64 mx-auto mb-6 rounded-2xl overflow-hidden bg-center bg-cover"
+                style={{ backgroundImage: "url('/about/scalewisley.png')" }}
+              >
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                  <span className="text-white font-bold text-2xl">
+                    Scale Wisely
+                  </span>
+                </div>
               </div>
-              <h3 className="font-space-grotesk text-xl font-semibold text-gray-900 mb-4">
-                Scale Wisely
-              </h3>
+
               <p className="text-gray-600 leading-relaxed">
                 Proven practices are adapted and shared while respecting local
                 context and community autonomy.
@@ -197,6 +240,99 @@ export default function About() {
               <span>Read our governance model</span>
               <ArrowRight size={16} />
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Work */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-space-grotesk text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+              Our work in action
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              See how we&apos;re building resilient communities through
+              practical projects and collaborative networks.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Fine Labs */}
+            <div className="group">
+              <div className="relative aspect-square rounded-2xl overflow-hidden mb-4">
+                <Image
+                  src="/work/finelabs.png"
+                  alt="Fine Labs Project"
+                  fill
+                  className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
+              </div>
+              <h3 className="font-space-grotesk text-lg font-semibold text-gray-900 mb-2">
+                Fine Labs
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                Innovation laboratory for sustainable technologies
+              </p>
+            </div>
+
+            {/* Library Learning */}
+            <div className="group">
+              <div className="relative aspect-square rounded-2xl overflow-hidden mb-4">
+                <Image
+                  src="/work/librarylearing.png"
+                  alt="Library Learning Project"
+                  fill
+                  className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
+              </div>
+              <h3 className="font-space-grotesk text-lg font-semibold text-gray-900 mb-2">
+                Library Learning
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                Community knowledge sharing and skill development
+              </p>
+            </div>
+
+            {/* Network */}
+            <div className="group">
+              <div className="relative aspect-square rounded-2xl overflow-hidden mb-4">
+                <Image
+                  src="/work/network.png"
+                  alt="Network Project"
+                  fill
+                  className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
+              </div>
+              <h3 className="font-space-grotesk text-lg font-semibold text-gray-900 mb-2">
+                Network Building
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                Connecting communities across bioregions
+              </p>
+            </div>
+
+            {/* Hero Work */}
+            <div className="group">
+              <div className="relative aspect-square rounded-2xl overflow-hidden mb-4">
+                <Image
+                  src="/work/hero.png"
+                  alt="Hero Work Project"
+                  fill
+                  className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
+              </div>
+              <h3 className="font-space-grotesk text-lg font-semibold text-gray-900 mb-2">
+                Community Heroes
+              </h3>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                Celebrating local leaders and changemakers
+              </p>
+            </div>
           </div>
         </div>
       </section>
