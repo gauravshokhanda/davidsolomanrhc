@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CheckCircle } from "lucide-react";
+import Image from "next/image";
 
 export default function Join() {
   const [formData, setFormData] = useState({
@@ -83,15 +84,23 @@ export default function Join() {
   return (
     <div className="min-h-screen">
       {/* Header Image */}
-      <section className="h-64 bg-light-green">
-        <div className="h-full flex items-center justify-center">
-          <div className="text-center text-gray-500">
-            <div className="w-24 h-24 bg-royal-green/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-3xl">🤝</span>
-            </div>
-            <p className="text-lg font-medium">Join Header Image</p>
-            <p className="text-sm">People connecting and collaborating</p>
-          </div>
+
+      <section className="relative h-64 overflow-hidden flex items-center justify-center">
+        <Image
+          src="/join/Hero.png"
+          alt="Join Hero"
+          fill
+          className="object-cover"
+          priority
+        />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/40" />
+
+        {/* Caption */}
+        <div className="relative z-10 text-center px-4">
+          <h1 className="font-space-grotesk text-4xl lg:text-5xl font-bold text-gray-900 mb-6 text-white">
+            Join our network
+          </h1>
         </div>
       </section>
 
@@ -99,9 +108,9 @@ export default function Join() {
       <section className="py-20 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h1 className="font-space-grotesk text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            {/* <h1 className="font-space-grotesk text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
               Join our network
-            </h1>
+            </h1> */}
             <p className="text-xl text-gray-600 leading-relaxed">
               Help us build resilient communities. Share your skills, learn from
               others, and contribute to meaningful change in your area.
