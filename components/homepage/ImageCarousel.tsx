@@ -4,6 +4,13 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
+interface Slide {
+  _id: string;
+  imageUrl: string;
+  caption?: string;
+  link?: string;
+}
+
 export default function ImageCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
