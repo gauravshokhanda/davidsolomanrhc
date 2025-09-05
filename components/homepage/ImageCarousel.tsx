@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { slideService } from "@/lib/api";
 
 interface Slide {
   _id: string;
@@ -12,57 +13,33 @@ interface Slide {
 }
 
 export default function ImageCarousel() {
+  const [slides, setSlides] = useState<Slide[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slides = [
-    {
-      image: "/carousel/Community garden workshop in Portland .png",
-      caption: "Community garden workshop in Portland",
-      credit: "Photo by Sarah Chen",
-    },
-    {
-      image: "/carousel/natural building techniques demonstration.png",
-      caption: "Natural building techniques demonstration",
-      credit: "Photo by Marcus Rivera",
-    },
-    {
-      image: "/carousel/Renewable energy system installation.png",
-      caption: "Renewable energy system installation",
-      credit: "Photo by Alex Thompson",
-    },
-    {
-      image: "/carousel/Skill-sharing circle gathering.png",
-      caption: "Skill-sharing circle gathering",
-      credit: "Photo by Jordan Kim",
-    },
-    {
-      image: "/carousel/Permaculture design planning session.png",
-      caption: "Permaculture design planning session",
-      credit: "Photo by Taylor Brown",
-    },
-    {
-      image: "/carousel/Youth leadership training program.png",
-      caption: "Youth leadership training program",
-      credit: "Photo by Casey Wilson",
-    },
-    {
-      image: "/carousel/Local food system mapping.png",
-      caption: "Local food system mapping",
-      credit: "Photo by Morgan Davis",
-    },
-    {
-      image: "/carousel/Resilience planning workshop.png",
-      caption: "Resilience planning workshop",
-      credit: "Photo by River Martinez",
-    },
-  ];
-
+  // ✅ Fetch slides using slideService
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [slides.length]);
+    const fetchSlides = async () => {
+      const baseUrl = process.env.NEXT_PUBLIC_Image_URL;
+      console.log(baseUrl);
+      try {
+        const data = await slideService.getAllSlides();
+        setSlides(data);
+      } catch (error) {
+        console.error("Error fetching slides:", error);
+      }
+    };
+    fetchSlides();
+  }, []);
+
+  // Auto slide every 5s
+  useEffect(() => {
+    if (slides.length > 0) {
+      const timer = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % slides.length);
+      }, 5000);
+      return () => clearInterval(timer);
+    }
+  }, [slides]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -72,6 +49,18 @@ export default function ImageCarousel() {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
+  if (slides.length === 0) {
+    return (
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="aspect-[21/9] bg-gray-200 rounded-2xl flex items-center justify-center">
+            <p className="text-gray-500">No slides available</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,8 +68,8 @@ export default function ImageCarousel() {
           <div className="aspect-[21/9] bg-light-green rounded-2xl overflow-hidden relative">
             {/* Carousel Image */}
             <Image
-              src={slides[currentSlide].image}
-              alt={slides[currentSlide].caption}
+              src={`${process.env.NEXT_PUBLIC_Image_URL}${slides[currentSlide].imageUrl}`}
+              alt={slides[currentSlide].caption || "Slide"}
               fill
               className="object-cover"
               priority
@@ -107,12 +96,24 @@ export default function ImageCarousel() {
             </button>
 
             {/* Caption Overlay */}
-            <div className="absolute bottom-4 left-4 right-4 bg-white/90 rounded-lg p-4">
-              <p className="font-medium text-gray-900">
-                {slides[currentSlide].caption}
-              </p>
-              {/* <p className="text-sm text-gray-600 mt-1">{slides[currentSlide].credit}</p> */}
-            </div>
+            {slides[currentSlide].caption && (
+              <div className="absolute bottom-4 left-4 right-4 bg-white/90 rounded-lg p-4">
+                {slides[currentSlide].link ? (
+                  <a
+                    href={slides[currentSlide].link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-gray-900"
+                  >
+                    {slides[currentSlide].caption}
+                  </a>
+                ) : (
+                  <p className="font-medium text-gray-900">
+                    {slides[currentSlide].caption}
+                  </p>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Slide Indicators */}

@@ -9,7 +9,8 @@ import {
   Image, 
   Settings, 
   Users,
-  BookOpen
+  BookOpen,
+  Sliders
 } from 'lucide-react';
 
 const AdminSidebar = () => {
@@ -25,6 +26,7 @@ const AdminSidebar = () => {
     { name: 'Projects', path: '/admin/projects', icon: <Folder size={18} /> },
     { name: 'Journal', path: '/admin/journal', icon: <BookOpen size={18} /> },
     { name: 'Media', path: '/admin/media', icon: <Image size={18} /> },
+    { name: "Slides", path: "/admin/slides", icon: <Sliders size={18} /> },
     { name: 'Members', path: '/admin/members', icon: <Users size={18} /> },
     { name: 'Settings', path: '/admin/settings', icon: <Settings size={18} /> },
   ];
